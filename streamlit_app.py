@@ -95,10 +95,10 @@ input_date = st.date_input('Seleccione una fecha para la simulación', date(2024
 input_datetime = datetime.combine(input_date, datetime.min.time())
 
 # Añadir 6.1 años a la fecha seleccionada
-years_to_add = 6.1
+years_to_add = 6.108
 result_date = input_datetime + timedelta(days=years_to_add * 365.25)  # Usando 365.25 para considerar años bisiestos
 
-st.write(f'Fecha resultante al añadir {years_to_add} años: {result_date.strftime("%d/%m/%Y")}')
+st.write(f'Fecha de Cuando se desembolsará el 100%, es resultante al añadir {years_to_add} años a la fecha inicial: {result_date.strftime("%d/%m/%Y")}')
 
 year = input_datetime.year + (input_datetime - datetime(input_datetime.year, 1, 1)).days / 365
 
@@ -106,9 +106,9 @@ year = input_datetime.year + (input_datetime - datetime(input_datetime.year, 1, 
 X_simulated = np.arange(0, int(year) + 1, 1)
 Y_simulated = polynomial_model(X_simulated)
 
-# Generar predicciones adicionales en incrementos de 0.1 años cerca de 1
+# Generar predicciones adicionales en incrementos de 1 años cerca de 1
 if Y_simulated[-1] < 1:
-    X_fine = np.arange(X_simulated[-1], year + 0.1, 0.1)
+    X_fine = np.arange(X_simulated[-1], year + 1, 1)
     Y_fine = polynomial_model(X_fine)
     X_simulated = np.concatenate((X_simulated, X_fine))
     Y_simulated = np.concatenate((Y_simulated, Y_fine))
